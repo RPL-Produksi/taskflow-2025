@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('bootstraps/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('poppins/OFL.txt') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/css/dataTables.bootstrap5.css') }}">
+    @stack('css')
+    <title>Todo List | @yield('title')</title>
+</head>
+<body style="background-color: #f2f2f2">
+    @yield('content')
+
+    <script src="{{ asset('datatable/js/jquery-3.7.1.js') }}"></script>
+    <script src="{{ asset('datatable/js/dataTables.js') }}"></script>
+    <script src="{{ asset('datatable/js/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('bootstraps/js/bootstrap.bundle.js') }}"></script>
+    @stack('js')
+</body>
+</html>

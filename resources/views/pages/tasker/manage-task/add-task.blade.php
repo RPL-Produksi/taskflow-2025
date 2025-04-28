@@ -28,6 +28,10 @@
                             <input type="file" class="form-control" name="image">
                         </div>
                         <div class="mt-3">
+                            <label for="video">Video (opsional)</label>
+                            <input type="text" class="form-control" name="video">
+                        </div>
+                        <div class="mt-3">
                             <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>
                     </form>

@@ -23,7 +23,12 @@
                     @foreach ($task as $item)
                         <div class="col-3 mt-3">
                             <div class="card border-0 shadow">
-                                @if ($item->image)
+                                @if ($item->video)
+                                    <iframe height="250" src="{{ $item->video }}" title="YouTube video player"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                @elseif ($item->image)
                                     <img src="{{ asset('storage/' . $item->image) }}" height="250"
                                         style="object-fit: cover" class="img-card-top" alt="">
                                 @else

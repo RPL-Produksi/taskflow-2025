@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'in_progress', 'in_review', 'done', 'rejected']);
             $table->string('image')->nullable();
             $table->string('comment')->nullable();
+            $table->string('information')->nullable();
             $table->timestamps();
         });
     }

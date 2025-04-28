@@ -78,7 +78,8 @@ class ManageTaskController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'nullable',
-            'image' => 'nullable'
+            'image' => 'nullable',
+            'video' => 'nullable'
         ]);
 
         $user = Auth::user();
@@ -92,6 +93,7 @@ class ManageTaskController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'image' => $path,
+            'video' => $request->video,
             'user_id' => $user->id,
         ]);
 
@@ -103,6 +105,7 @@ class ManageTaskController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'description' => 'nullable',
+            'video' => 'nullable',
             'image' => 'nullable'
         ]);
 

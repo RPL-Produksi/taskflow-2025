@@ -23,11 +23,34 @@
                     @foreach ($task as $item)
                         <div class="col-3 mt-3">
                             <div class="card border-0 shadow">
+                                @php
+                                    function getYoutubeEmbedUrl($url)
+                                    {
+                                        if (strpos($url, 'youtu.be/') !== false) {
+                                            $videoId = explode('/', parse_url($url, PHP_URL_PATH))[1];
+                                        } elseif (strpos($url, 'watch?v=') !== false) {
+                                            parse_str(parse_url($url, PHP_URL_QUERY), $query);
+                                            $videoId = $query['v'] ?? null;
+                                        } else {
+                                            $videoId = null;
+                                        }
+
+                                        return $videoId ? 'https://www.youtube.com/embed/' . $videoId : null;
+                                    }
+
+                                    $videoEmbedUrl = getYoutubeEmbedUrl($item->video);
+                                @endphp
+
+
                                 @if ($item->video)
-                                    <iframe height="250" src="{{ $item->video }}" title="YouTube video player"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    @if ($videoEmbedUrl)
+                                        <iframe height="250" src="{{ $videoEmbedUrl }}" title="YouTube video player"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    @else
+                                        <p>Video URL tidak valid.</p>
+                                    @endif
                                 @elseif ($item->image)
                                     <img src="{{ asset('storage/' . $item->image) }}" height="250"
                                         style="object-fit: cover" class="img-card-top" alt="">
@@ -36,8 +59,8 @@
                                         style="object-fit: cover" class="img-card-top" alt="">
                                 @endif
                                 <div class="card-body">
-                                    <h3 class="card-title">{{ $item->title }}</h3>
-                                    <p>{{ $item->description }}</p>
+                                    <h3 class="card-title">{{ Str::limit($item->title,  16) }}</h3>
+                                    <p>{{ Str::limit($item->description, 115) }}</p>
                                     <div class="d-flex">
                                         <a href="{{ route('manage.subtask', $item->id) }}" class="btn btn-success me-1"><i
                                                 class="fa-solid fa-sticky-note"></i></a>

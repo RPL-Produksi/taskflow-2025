@@ -28,6 +28,10 @@
                             <input type="file" class="form-control" name="image">
                         </div>
                         <div class="mt-3">
+                            <label for="video">Link Embed Video Youtube (opsional)</label>
+                            <input type="text" class="form-control" value="{{ $task->video }}" name="video">
+                        </div>
+                        <div class="mt-3">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </div>
                     </form>

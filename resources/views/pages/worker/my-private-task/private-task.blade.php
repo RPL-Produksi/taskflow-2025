@@ -31,8 +31,8 @@
                                         style="object-fit: cover" class="img-card-top" alt="">
                                 @endif
                                 <div class="card-body">
-                                    <h3 class="card-title">{{ $item->title }}</h3>
-                                    <p>{{ $item->description }}</p>
+                                    <h3 class="card-title">{{ Str::limit($item->title,  16) }}</h3>
+                                    <p>{{ Str::limit($item->description, 115) }}</p>
                                     <div class="d-flex">
                                         <a href="{{ route('private.subtask', $item->id) }}" class="btn btn-success me-1"><i
                                             class="fa-solid fa-sticky-note"></i></a>

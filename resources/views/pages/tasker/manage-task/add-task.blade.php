@@ -28,7 +28,7 @@
                             <input type="file" class="form-control" name="image">
                         </div>
                         <div class="mt-3">
-                            <label for="video">Video (opsional)</label>
+                            <label for="video">Link Embed Video Youtube (opsional)</label>
                             <input type="text" class="form-control" name="video">
                         </div>
                         <div class="mt-3">

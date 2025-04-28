@@ -38,9 +38,6 @@
                     <li class="nav-item px-2">
                         <a href="{{ route('task') }}" class="nav-link"><i class="fa-solid fa-clipboard me-1"></i> My Task</a>
                     </li>
-                    <li class="nav-item px-2 mt-2">
-                        <a href="{{ route('private.task') }}" class="nav-link"><i class="fa-solid fa-sticky-note me-1"></i> Private Task</a>
-                    </li>
                 @endif
             </ul>
         </div>

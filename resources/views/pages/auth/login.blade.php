@@ -19,7 +19,7 @@
 @section('content')
     <div class="d-flex justify-content-center align-items-center background text-white" style="height: 100vh">
         <div class="card border-0 shadow p-4 bg-transparent" style="width: 35%">
-            <h2 class="text-center fw-bold">📋Todo List</h4>
+            <h2 class="text-center fw-bold">Login</h4>
             <p class="text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel commodi quod molestias similique. Atque, rerum.</p>
             <form action="{{ route('login') }}" method="POST" class="mt-4">
                 @csrf
@@ -51,9 +51,6 @@
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-primary w-100">Masuk</button>
-                </div>
-                <div class="mt-2">
-                    <small>Belum punya akun? <a href="{{ route('register') }}" class="text-decoration-none">daftar sekarang</a></small>
                 </div>
             </form>
         </div>

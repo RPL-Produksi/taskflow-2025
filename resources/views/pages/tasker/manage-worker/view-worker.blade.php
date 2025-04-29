@@ -33,6 +33,7 @@
                                 <th>Title</th>
                                 <th>Progress</th>
                                 <th>Image</th>
+                                <th>Keterangan</th>
                                 <th>Comment</th>
                                 <th>Action</th>
                             </tr>
@@ -64,6 +65,12 @@
                                             } else {
                                                 $comment = $progress->comment;
                                             }
+
+                                            if (!$progress) {
+                                                $keterangan = '';
+                                            } else {
+                                                $keterangan = $progress->information;
+                                            }
                                         @endphp
                                         @if ($status == 'pending')
                                             <p class="btn btn-danger">{{ $status }}</p>
@@ -86,6 +93,9 @@
                                             <a href="{{ asset('storage/' . $image) }}" class="btn btn-primary"><i
                                                     class="fa-solid fa-image"></i></a>
                                         @endif
+                                    </td>
+                                    <td>
+                                        {{ $keterangan }}
                                     </td>
                                     <td>
                                         {{ $comment }}

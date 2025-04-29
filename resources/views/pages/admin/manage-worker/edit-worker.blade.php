@@ -2,7 +2,7 @@
 @push('css')
 
 @endpush
-@section('title', 'Edit Worker')
+@section('title', 'Edit Murid')
 @section('content')
 <div class="d-flex text-secondary">
     @include('components.sidebar')
@@ -11,7 +11,7 @@
             <div class="px-4 mt-4">
                 <div class="card border-0 shadow p-4">
                     <div class="d-flex justify-content-between">
-                        <h5>Edit Worker</h5>
+                        <h5>Edit Murid</h5>
                     </div>
                     <hr>
                     <form action="{{ route('update.worker', $worker->id) }}" method="POST" enctype="multipart/form-data">

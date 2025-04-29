@@ -17,6 +17,9 @@ class User extends Authenticatable
     public function task() {
         return $this->hasMany(Task::class);
     }
+    public function tes() {
+        return $this->hasMany(Tes::class);
+    }
 
     /**
      * The attributes that are mass assignable.

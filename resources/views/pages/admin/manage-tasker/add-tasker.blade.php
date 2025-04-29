@@ -1,7 +1,7 @@
 @extends('main')
 @push('css')
 @endpush
-@section('title', 'Tambah Tasker')
+@section('title', 'Tambah Guru')
 @section('content')
     <div class="d-flex text-secondary">
         @include('components.sidebar')
@@ -10,7 +10,7 @@
             <div class="px-4 mt-4">
                 <div class="card border-0 shadow p-4">
                     <div class="d-flex justify-content-between">
-                        <h5>Tambah Tasker</h5>
+                        <h5>Tambah Guru</h5>
                     </div>
                     <hr>
                     <form action="{{ route('store.tasker') }}" method="POST" enctype="multipart/form-data">

@@ -2,7 +2,7 @@
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
-@section('title', 'Kelola Worker')
+@section('title', 'Kelola Assign Siswa')
 @section('content')
     <div class="d-flex text-secondary">
         @include('components.sidebar')
@@ -11,13 +11,13 @@
             <div class="px-4">
                 <div class="card border-0 shadow p-3 mt-4">
                     <div class="d-flex justify-content-between">
-                        <h5>Assign Worker</h5>
+                        <h5>Assign Siswa</h5>
                     </div>
                 </div>
                 <div class="card border-0 shadow p-3 mt-4">
-                    <h5>Tambah Worker</h5>
+                    <h5>Tambah Siswa</h5>
                     <hr>
-                    <form action="{{ route('store.taskworker') }}" method="POST">
+                    <form action="{{ route('store.assign.siswa') }}" method="POST">
                         @csrf
                         <div class="d-flex">
                             <select name="user_id[]" class="form-control me-2 select-worker" multiple>
@@ -25,7 +25,7 @@
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
-                            <input type="hidden" name="task_id" value="{{ $task->id }}">
+                            <input type="hidden" name="tes_id" value="{{ $tes->id }}">
                             <button type="submit" class="btn btn-primary ms-2">Tambah</button>
                         </div>
                     </form>
@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($taskWorker as $item)
+                            @foreach ($tesSiswa as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
@@ -70,9 +70,7 @@
                                     <td>{{ $item->user->username }}</td>
                                     <td>{{ $item->user->role }}</td>
                                     <td class="d-flex">
-                                        <a href="{{ route('manage.subtaskworker', ['task' => $task->id, 'worker' => $item->user_id]) }}"
-                                            class="btn btn-primary me-1"><i class="fa-solid fa-eye"></i></a>
-                                        <form action="{{ route('delete.taskworker', $item->id) }}" method="POST">
+                                        <form action="{{ route('delete.tesSiswa', $item->id) }}" method="POST">
                                             @csrf
                                             <button type="submit"
                                                 onclick="return confirm('Yakin ingin menghapus subtask ini?')"

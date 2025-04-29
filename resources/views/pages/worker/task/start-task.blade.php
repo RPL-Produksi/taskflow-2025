@@ -34,6 +34,7 @@
                                 <th>Title</th>
                                 <th>Progress</th>
                                 <th>Image</th>
+                                <th>Keterangan</th>
                                 <th>Comment</th>
                                 <th>Action</th>
                             </tr>
@@ -59,6 +60,12 @@
                                         $comment = '';
                                     } else {
                                         $comment = $progress->comment;
+                                    }
+
+                                    if (!$progress) {
+                                        $keterangan = '';
+                                    } else {
+                                        $keterangan = $progress->information;
                                     }
                                 @endphp
                                 <tr>
@@ -87,6 +94,7 @@
                                                     class="fa-solid fa-image"></i></a>
                                         @endif
                                     </td>
+                                    <td>{{ $keterangan }}</td>
                                     <td>{{ $comment }}</td>
                                     <td class="d-flex">
                                         @if ($status == 'pending')
@@ -117,6 +125,7 @@
                                                     onclick="return confirm('Yakin sudah mengirim foto bukti yg benar?')"
                                                     class="btn btn-warning text-white me-2"><i class="fa-solid fa-check"></i></button>
                                                 <input type="file" class="form-control" name="image" required>
+                                                <input type="text" class="form-control ms-2" name="information" placeholder="masukan keterangan">
                                             </form>
                                         @endif
                                     </td>

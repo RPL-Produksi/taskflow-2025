@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ManageTaskWorkerController extends Controller
 {
-    public function index(Task $task) {
+    public function index(Task $task)
+    {
         $user = Auth::user();
         $taskWorker = TaskWorker::where('task_id', $task->id)->with('user')->get();
         $worker = User::where('role', 'worker')->get();
@@ -20,26 +21,36 @@ class ManageTaskWorkerController extends Controller
         return view('pages.tasker.manage-worker.manage-worker', compact('user', 'taskWorker', 'task', 'worker'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
-            'user_id' => 'required',
-            'task_id' => 'required'
+            'user_id' => 'required|array',
+            'user_id.*' => 'required|exists:users,id',
+            'task_id' => 'required|exists:tasks,id',
         ]);
 
-        $exist = TaskWorker::where('user_id', $request->user_id)->where('task_id', $request->task_id)->exists();
-        if($exist) {
-            return redirect()->back()->with('error', 'Worker sudah ada');
+        foreach ($request->user_id as $userId) {
+            $exist = TaskWorker::where('user_id', $userId)
+                ->where('task_id', $request->task_id)
+                ->exists();
+            if ($exist) {
+                $userName = \App\Models\User::find($userId)?->name ?? 'Worker';
+                return redirect()->back()->with('error', "Worker {$userName} sudah diassign.");
+            }
         }
 
-        TaskWorker::create([
-            'user_id' => $request->user_id,
-            'task_id' => $request->task_id,
-        ]);
+        foreach ($request->user_id as $userId) {
+            TaskWorker::create([
+                'user_id' => $userId,
+                'task_id' => $request->task_id,
+            ]);
+        }
 
-        return redirect()->back()->with('success', 'Worker berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Worker(s) berhasil ditambahkan');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $worker = TaskWorker::find($id);
         $worker->delete();
 

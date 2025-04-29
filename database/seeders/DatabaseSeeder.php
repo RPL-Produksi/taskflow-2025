@@ -21,17 +21,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'tasker',
-            'username' => 'tasker',
+            'name' => 'guru',
+            'username' => 'guru',
             'role' => 'tasker',
-            'password' => bcrypt('tasker123'),
+            'password' => bcrypt('guru123'),
         ]);
 
         User::create([
-            'name' => 'worker',
-            'username' => 'worker',
+            'name' => 'siswa',
+            'username' => 'siswa',
             'role' => 'worker',
-            'password' => bcrypt('worker123'),
+            'password' => bcrypt('siswa123'),
         ]);
     }
 }

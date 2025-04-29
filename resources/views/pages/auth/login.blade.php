@@ -24,11 +24,11 @@
             <form action="{{ route('login') }}" method="POST" class="mt-4">
                 @csrf
                 <div>
-                    <label for="username"><i class="fa-solid fa-user"></i> Username</label>
+                    <label for="username"><i class="fa-regular fa-user"></i> Username</label>
                     <input type="text" class="form-control" required name="username">
                 </div>
                 <div class="mt-3">
-                    <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+                    <label for="password"><i class="fa-regular fa-lock"></i> Password</label>
                     <input type="password" class="form-control" required name="password">
                 </div>
                 <div class="mt-3">

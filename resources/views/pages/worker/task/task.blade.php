@@ -10,7 +10,7 @@
             <div class="px-4">
                 <div class="card border-0 shadow p-3 mt-4">
                     <div class="d-flex justify-content-between">
-                        <h5>My Task</h5>
+                        <h5>Daftar Task</h5>
                     </div>
                 </div>
                 @if (session('success'))

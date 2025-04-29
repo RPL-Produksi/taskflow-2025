@@ -1,7 +1,7 @@
 @extends('main')
 @push('css')
 @endpush
-@section('title', 'Kelola Worker')
+@section('title', 'Kelola Murid')
 @section('content')
     <div class="d-flex text-secondary">
         @include('components.sidebar')
@@ -11,8 +11,8 @@
             <div class="px-4 mt-4">
                 <div class="card border-0 shadow p-4">
                     <div class="d-flex justify-content-between">
-                        <h5>Kelola Worker</h5>
-                        <a href="{{ route('add.worker') }}" class="btn btn-primary">Tambah Worker</a>
+                        <h5>Kelola Murid</h5>
+                        <a href="{{ route('add.worker') }}" class="btn btn-primary">Tambah Murid</a>
                     </div>
                     <hr>
                     @if (session('success'))
@@ -27,7 +27,6 @@
                                 <th>Avatar</th>
                                 <th>Name</th>
                                 <th>Username</th>
-                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -47,7 +46,6 @@
                                     </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->username }}</td>
-                                    <td>{{ $item->role }}</td>
                                     <td class="d-flex">
                                         <a href="{{ route('edit.worker', $item->id) }}" class="btn btn-primary me-1"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>

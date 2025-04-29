@@ -2,7 +2,7 @@
 @push('css')
 
 @endpush
-@section('title', 'Tambah Worker')
+@section('title', 'Tambah Murid')
 @section('content')
 <div class="d-flex text-secondary">
     @include('components.sidebar')
@@ -11,7 +11,7 @@
             <div class="px-4 mt-4">
                 <div class="card border-0 shadow p-4">
                     <div class="d-flex justify-content-between">
-                        <h5>Tambah Worker</h5>
+                        <h5>Tambah Murid</h5>
                     </div>
                     <hr>
                     <form action="{{ route('store.worker') }}" method="POST" enctype="multipart/form-data">

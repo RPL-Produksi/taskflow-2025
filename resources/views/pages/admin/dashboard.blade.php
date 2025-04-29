@@ -20,13 +20,13 @@
                 <div class="row mt-3">
                     <div class="col-2">
                         <div class="card text-white bg-primary shadow border-0 p-3">
-                            <h5>Total Tasker :</h5>
+                            <h5>Total Guru :</h5>
                             <h5><i class="fa-solid fa-users"></i> {{ $taskerCount }}</h5>
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="card text-white bg-success shadow border-0 p-3">
-                            <h5>Total Worker :</h5>
+                            <h5>Total Murid :</h5>
                             <h5><i class="fa-solid fa-users"></i> {{ $workerCount }}</h5>
                         </div>
                     </div>

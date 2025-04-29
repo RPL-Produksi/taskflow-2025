@@ -4,15 +4,19 @@ use App\Http\Controllers\Admin\ManageTaskerController;
 use App\Http\Controllers\Admin\ManageWorkerController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tasker\DashboardTaskerController;
+use App\Http\Controllers\Tasker\ManageAssignSiswa;
+use App\Http\Controllers\Tasker\ManageSoalController;
 use App\Http\Controllers\Tasker\ManageSubtaskController;
 use App\Http\Controllers\Tasker\ManageSubtaskWorkerController;
 use App\Http\Controllers\Tasker\ManageTaskController;
 use App\Http\Controllers\Tasker\ManageTaskWorkerController;
+use App\Http\Controllers\Tasker\ManageTesController;
 use App\Http\Controllers\Worker\DashboardWorkerController;
 use App\Http\Controllers\Worker\PrivateSubTaskController;
 use App\Http\Controllers\Worker\PrivateTaskController;
 use App\Http\Controllers\Worker\SubtaskController;
 use App\Http\Controllers\Worker\TaskController;
+use App\Http\Controllers\Worker\TesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'index'])->name('index');
@@ -71,6 +75,26 @@ Route::group(['prefix' => 'tasker', 'middleware' => ['can:tasker']], function() 
         Route::post('/acc/{id}', 'acc')->name('acc');
         Route::post('/cancel/{id}', 'cancel')->name('cancel');
     });
+    Route::group(['prefix' => 'manage-tes', 'controller' => ManageTesController::class], function () {
+        Route::get('/', 'index')->name('manage.tes');
+        Route::get('/add', 'add')->name('add.tes');
+        Route::get('/edit/{id}', 'edit')->name('edit.tes');
+        Route::post('/store', 'store')->name('store.tes');
+        Route::post('/update/{id}', 'update')->name('update.tes');
+        Route::post('/delete/{id}', 'delete')->name('delete.tes');
+    });
+    Route::group(['prefix' => 'manage-soal', 'controller' => ManageSoalController::class], function () {
+        Route::get('/{tes}', 'index')->name('manage.soal');
+        Route::get('/add/{tes}', 'add')->name('add.soal');
+        Route::post('/store', 'store')->name('store.soal');
+        Route::post('/import', 'import')->name('import.soal');
+        Route::post('/delete/{id}', 'delete')->name('delete.soal');
+    });
+    Route::group(['prefix' => 'manage-tes-siswa', 'controller' => ManageAssignSiswa::class], function () {
+        Route::get('/{tes}', 'index')->name('manage.assign.siswa');
+        Route::post('/store', 'store')->name('store.assign.siswa');
+        Route::post('/delete/{id}', 'delete')->name('delete.tesSiswa');
+    });
     Route::get('/', [DashboardTaskerController::class, 'index'])->name('dashboard.tasker');
 });
 
@@ -99,5 +123,9 @@ Route::group(['prefix' => 'worker', 'middleware' => ['can:worker']], function() 
         Route::post('/store', 'store')->name('store.private.subtask');
         Route::post('/delete/{id}', 'delete')->name('delete.private.subtask');
         Route::post('/done/{id}', 'done')->name('done.private.subtask');
+    });
+    Route::group(['prefix' => 'tes', 'controller' => TesController::class], function() {
+        Route::get('/', 'index')->name('tes');
+        Route::get('/start/{tes}', 'start')->name('start.tes');
     });
 });

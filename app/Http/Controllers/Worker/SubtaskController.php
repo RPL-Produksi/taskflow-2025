@@ -44,6 +44,7 @@ class SubtaskController extends Controller
     public function review(Request $request, $id) {
         $data = $request->validate([
             'image' => 'nullable',
+            'information' => 'nullable',
         ]);
 
         $subtaskWorker = SubtaskWorker::find($id);

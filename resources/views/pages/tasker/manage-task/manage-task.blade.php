@@ -10,7 +10,7 @@
             <div class="px-4">
                 <div class="card border-0 shadow p-3 mt-4">
                     <div class="d-flex justify-content-between">
-                        <h5>My Task</h5>
+                        <h5>Kelola Task</h5>
                         <a href="{{ route('add.task') }}" class="btn btn-primary">Tambah Task</a>
                     </div>
                 </div>

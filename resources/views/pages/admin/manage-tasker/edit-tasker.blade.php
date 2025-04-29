@@ -1,7 +1,7 @@
 @extends('main')
 @push('css')
 @endpush
-@section('title', 'Edit Tasker')
+@section('title', 'Edit Guru')
 @section('content')
     <div class="d-flex text-secondary">
         @include('components.sidebar')
@@ -10,7 +10,7 @@
             <div class="px-4 mt-4">
                 <div class="card border-0 shadow p-4">
                     <div class="d-flex justify-content-between">
-                        <h5>Edit Tasker</h5>
+                        <h5>Edit Guru</h5>
                     </div>
                     <hr>
                     <form action="{{ route('update.tasker', $tasker->id) }}" method="POST" enctype="multipart/form-data">

@@ -10,7 +10,7 @@
             @include('components.navbar')
             <div class="px-4 mt-4">
                 <div class="card border-0 shadow p-3">
-                   <h5>Dashboard</h5>
+                    <h5>Dashboard</h5>
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success mt-3 shadow">
@@ -24,22 +24,14 @@
                             <h5><i class="fa-solid fa-clipboard"></i> {{ $taskCount }}</h5>
                         </div>
                     </div>
-
-                    <div class="col-2">
-                        <div class="card text-white bg-success shadow border-0 p-3">
-                            <h5>Total Private Task :</h5>
-                            <h5><i class="fa-solid fa-clipboard"></i> {{ $privateTaskCount }}</h5>
-                        </div>
-                    </div>
-
+                </div>
             </div>
         </div>
-    </div>
-@endsection
-@push('js')
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
-@endpush
+    @endsection
+    @push('js')
+        <script>
+            $(document).ready(function() {
+                $('#dataTable').DataTable();
+            });
+        </script>
+    @endpush

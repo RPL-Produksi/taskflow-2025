@@ -3,7 +3,7 @@
 @endpush
 @section('title', 'Start Tes')
 @section('content')
-    <div class="d-flex text-secondary">
+    <div class="d-flex text-secondary pb-5">
         @include('components.sidebar')
         <div class="container-fluid" style="padding-left: 250px">
             @include('components.navbar')
@@ -19,35 +19,109 @@
                     </div>
                 @endif
                 <div class="card p-4 border-0 shadow mt-3">
-                    <form action="" method="POST">
+                    <form action="{{ route('submit.tes', $tes->id) }}" method="POST" id="tesForm">
                         @csrf
-                        @foreach ($soals as $soal)
-                            <div class="mb-3">
-                                <strong>{{ $loop->iteration }}. {{ $soal->pertanyaan }}</strong>
-                                @if($soal->image)
-                                    <img src="{{ asset('storage/' . $soal->image) }}" width="200">
-                                @endif
-                                @foreach ($soal->pilihan as $pilihan)
-                                    <div>
-                                        <label>
-                                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="{{ $pilihan->opsi }}" required>
-                                            {{ $pilihan->opsi }}. {{ $pilihan->isi_pilihan }}
-                                        </label>
+                        <div id="soal-container">
+                            @foreach ($soals as $index => $soal)
+                                <div class="soal-item" data-id="{{ $soal->id }}" style="display:none;">
+                                    <div class="mb-2 d-flex align-items-start">
+                                        <strong class="me-1">
+                                            {{ $index + 1 }}.
+                                        </strong>
+                                        <div>
+                                            <strong>{{ $soal->pertanyaan }}</strong>
+                                        </div>
                                     </div>
-                                @endforeach
-                            </div>
-                        @endforeach
-                        <button type="submit" class="btn btn-success">Selesai</button>
+                                    @if ($soal->image)
+                                        <img src="{{ asset('storage/' . $soal->image) }}" width="200">
+                                    @endif
+                                    @foreach ($soal->pilihan as $pilihan)
+                                        <div>
+                                            <label>
+                                                <input type="radio" name="jawaban[{{ $soal->id }}]"
+                                                    value="{{ $pilihan->opsi }}">
+                                                {{ $pilihan->opsi }}. {{ $pilihan->isi_pilihan }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endforeach
+
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-secondary" id="prevBtn"
+                                onclick="navigate(-1)">Sebelumnya</button>
+                            <button type="button" class="btn btn-primary" id="nextBtn"
+                                onclick="navigate(1)">Selanjutnya</button>
+                        </div>
+
+                        <div class="mt-3">
+                            <!-- Tombol Selesai hanya muncul saat soal terakhir -->
+                            <button type="submit" class="btn btn-success mt-3" id="finishBtn"
+                                style="display: none;">Selesai</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
 @push('js')
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
+        let currentSoalIndex = 0;
+        const soalItems = document.querySelectorAll('.soal-item');
+        const finishBtn = document.getElementById('finishBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+
+        // Menampilkan soal pertama saat halaman dimuat
+        soalItems[currentSoalIndex].style.display = 'block';
+
+        function navigate(direction) {
+            // Menyembunyikan soal saat ini
+            soalItems[currentSoalIndex].style.display = 'none';
+
+            // Mengubah index soal berdasarkan tombol
+            currentSoalIndex += direction;
+
+            // Pastikan index berada dalam rentang yang valid
+            if (currentSoalIndex < 0) currentSoalIndex = 0;
+            if (currentSoalIndex >= soalItems.length) currentSoalIndex = soalItems.length - 1;
+
+            // Menampilkan soal yang baru
+            soalItems[currentSoalIndex].style.display = 'block';
+
+            // Menampilkan tombol "Selesai" jika soal terakhir
+            finishBtn.style.display = currentSoalIndex === soalItems.length - 1 ? 'block' : 'none';
+        }
+
+        // Cek apakah ada jawaban tersimpan di localStorage
+soalItems.forEach((item, index) => {
+    const soalId = item.dataset.id;
+    const savedAnswer = localStorage.getItem(`jawaban_${soalId}`);
+    if (savedAnswer) {
+        const radio = item.querySelector(`input[value="${savedAnswer}"]`);
+        if (radio) {
+            radio.checked = true;
+        }
+    }
+
+    // Setiap kali user memilih jawaban, simpan ke localStorage
+    const radios = item.querySelectorAll('input[type="radio"]');
+    radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            localStorage.setItem(`jawaban_${soalId}`, radio.value);
         });
+    });
+});
+document.getElementById('tesForm').addEventListener('submit', () => {
+    soalItems.forEach(item => {
+        const soalId = item.dataset.id;
+        localStorage.removeItem(`jawaban_${soalId}`);
+    });
+});
+
     </script>
 @endpush

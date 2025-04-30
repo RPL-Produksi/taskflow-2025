@@ -47,9 +47,7 @@
                                                 onclick="return confirm('Yakin ingin menghapus tes ini?')"
                                                 class="btn btn-danger text-white"><i class="fa-solid fa-trash"></i></button>
                                         </form>
-                                        <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
-                                            data-bs-target="#progressModal-{{ $item->id }}">Nilai Siswa
-                                        </button>
+                                        <a href="{{ route('nilai.siswa', $item->id) }}" class="btn btn-secondary">Nilai Siswa</a>
                                     </div>
                                 </div>
                             </div>

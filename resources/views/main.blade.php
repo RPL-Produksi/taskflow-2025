@@ -19,6 +19,35 @@
     <script src="{{ asset('datatable/js/dataTables.js') }}"></script>
     <script src="{{ asset('datatable/js/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('bootstraps/js/bootstrap.bundle.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session("success") }}',
+                showConfirmButton: true,
+            });
+        @endif
+    
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session("error") }}',
+                showConfirmButton: true,
+            });
+        @endif
+
+        @if($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                html: `{!! implode('<br>', $errors->all()) !!}`,
+                confirmButtonText: 'Mengerti'
+            });
+        @endif
+    </script>    
     @stack('js')
 </body>
 </html>

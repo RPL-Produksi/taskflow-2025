@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Pilihan;
 use App\Models\Soal;
 use App\Models\Tes;
+use App\Exports\NilaiExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ManageSoalController extends Controller
 {
@@ -24,6 +26,13 @@ class ManageSoalController extends Controller
         $user = Auth::user();
 
         return view('pages.tasker.manage-soal.add', compact('user', 'tes'));
+    }
+
+    public function edit($id)
+    {
+        $user = Auth::user();
+        $soal = Soal::with('pilihan')->findOrFail($id);
+        return view('pages.tasker.manage-soal.edit', compact('soal', 'user'));
     }
 
     public function store(Request $request)
@@ -56,6 +65,35 @@ class ManageSoalController extends Controller
         }
 
         return redirect()->route('manage.tes')->with('success', 'Soal dan pilihan berhasil disimpan!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'pertanyaan' => 'required|string',
+            'pilihan' => 'required|array',
+            'jawaban_benar' => 'required|in:A,B,C,D',
+        ]);
+
+        $soal = Soal::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('image', 'public');
+            $soal->image = $path;
+        }
+
+        $soal->pertanyaan = $request->pertanyaan;
+        $soal->jawaban_benar = $request->jawaban_benar;
+        $soal->save();
+
+        foreach ($request->pilihan as $opsi => $isi) {
+            $soal->pilihan()->updateOrCreate(
+                ['opsi' => $opsi],
+                ['isi_pilihan' => $isi]
+            );
+        }
+
+        return redirect()->route('manage.tes')->with('success', 'Soal berhasil diperbarui!');
     }
 
     public function import(Request $request)
@@ -110,7 +148,8 @@ class ManageSoalController extends Controller
         return back()->with('success', 'Soal berhasil diimpor dari file .txt!');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $soal = Soal::find($id);
         $soal->delete();
 

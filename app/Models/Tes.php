@@ -9,13 +9,20 @@ class Tes extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public function tesSiswa() {
+    public function tesSiswa()
+    {
         return $this->hasMany(TesSiswa::class);
     }
-    public function soals() {
+    public function soals()
+    {
         return $this->hasMany(Soal::class);
     }
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+    public function hasilTes()
+    {
+        return $this->hasOne(HasilTes::class);
     }
 }

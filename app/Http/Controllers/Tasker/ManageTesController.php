@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Tasker;
 
+use App\Exports\NilaiExport;
 use App\Http\Controllers\Controller;
+use App\Models\HasilTes;
 use App\Models\Task;
 use App\Models\Tes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ManageTesController extends Controller
 {
@@ -32,12 +35,21 @@ class ManageTesController extends Controller
         return view('pages.tasker.manage-tes.edit-tes', compact('user', 'tes'));
     }
 
+    public function nilai(Tes $tes)
+    {
+        $user = Auth::user();
+        $nilai = HasilTes::where('tes_id', $tes->id)->with('user')->get();
+
+        return view('pages.tasker.manage-tes.nilai', compact('tes', 'user', 'nilai'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required',
             'image' => 'nullable',
             'description' => 'nullable',
+            'deadline' => 'nullable',
         ]);
 
         $user = Auth::user();
@@ -51,6 +63,7 @@ class ManageTesController extends Controller
             'title' => $request->title,
             'image' => $path,
             'description' => $request->description,
+            'deadline' => $request->deadline,
             'user_id' => $user->id,
         ]);
 
@@ -61,8 +74,9 @@ class ManageTesController extends Controller
     {
         $data = $request->validate([
             'title' => 'required',
-            'image' => 'required',
+            'image' => 'nullable',
             'description' => 'nullable',
+            'deadline' => 'nullable',
         ]);
 
         $tes = Tes::find($id);
@@ -78,10 +92,20 @@ class ManageTesController extends Controller
         return redirect()->route('manage.tes')->with('success', 'Tes berhasil diedit');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $tes = Tes::find($id);
         $tes->delete();
 
         return redirect()->back()->with('success', 'Tes berhasil dihapus');
     }
+
+    public function export(Request $request)
+    {
+        $tes = Tes::findOrFail($request->tes_id);
+        $filename = 'Nilai_' . str_replace(' ', '_', $tes->title) . '.xlsx';
+
+        return Excel::download(new NilaiExport($tes->id, $tes->title), $filename);
+    }
+
 }

@@ -3,7 +3,7 @@
 @endpush
 @section('title', 'Kelola Soal')
 @section('content')
-    <div class="d-flex text-secondary">
+    <div class="d-flex text-secondary pb-5">
         @include('components.sidebar')
         <div class="container-fluid" style="padding-left: 250px">
             @include('components.navbar')
@@ -21,8 +21,11 @@
                                 <label>Import Soal (TXT):</label>
                                 <input type="file" class="form-control" name="file" accept=".txt" required>
                                 <input type="hidden" name="tes_id" value="{{ $tes->id }}">
-                                <button type="submit" class="btn btn-success mt-2 w-100">Import Soal Txt</button>
-                            </form>
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-success mt-2 w-100">Import Soal Txt</button>
+                                    <a href="{{ route('download.format.soal') }}" class="btn btn-secondary ms-2 mt-2 w-100">Download Format</a>
+                                </div>
+                            </form>                            
                         </div>
                         <div class="d-flex align-items-end">
                             <a href="{{ route('add.soal', $tes->id) }}" class="btn ml-auto btn-primary">Tambah Soal</a>
@@ -47,7 +50,8 @@
                                 <tr>
                                     <th>{{ $loop->iteration }}</th>
                                     <td>{{ $item->pertanyaan }}</td>
-                                    <td>
+                                    <td class="d-flex">
+                                        <a href="{{ route('edit.soal', $item->id) }}" class="btn btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <form action="{{ route('delete.soal', $item->id) }}" method="POST">
                                             @csrf
                                             <button type="submit"

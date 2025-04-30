@@ -21,6 +21,7 @@ class User extends Authenticatable
         return $this->hasMany(Tes::class);
     }
 
+
     /**
      * The attributes that are mass assignable.
      *

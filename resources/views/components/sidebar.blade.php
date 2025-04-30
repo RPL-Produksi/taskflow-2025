@@ -1,6 +1,6 @@
-<div class="py-3 ps-4 text-secondary">
+<div class="py-3 ps-4 text-secondary d-none d-xl-block">
     <div class="position-fixed py-3 rounded-3 bg-white shadow" style="width: 250px; height: 96vh;">
-        <h5 class="text-center fw-bold">Todo List</h5>
+        <h5 class="text-center fw-bold">Tes Flow</h5>
         <div class="px-4 py-2 mb-2">
             <div class="bg-secondary" style="height: 2px;"></div>
         </div>

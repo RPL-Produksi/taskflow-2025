@@ -28,6 +28,10 @@
                             <input type="file" class="form-control" name="image">
                         </div>
                         <div class="mt-3">
+                            <label for="image">Deadline (opsional)</label>
+                            <input type="date" class="form-control" name="deadline">
+                        </div>
+                        <div class="mt-3">
                             <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>
                     </form>

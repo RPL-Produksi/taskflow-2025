@@ -50,6 +50,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['can:admin']], function() {
     });
 });
 
+Route::get('/soal/format/download', function () {
+    return response()->download(storage_path('app/public/format soal.txt'));
+})->name('download.format.soal');
+Route::get('/nilai/export', [ManageTesController::class, 'export'])->name('nilai.export');
 Route::group(['prefix' => 'tasker', 'middleware' => ['can:tasker']], function() {
     Route::group(['prefix' => 'manage-task', 'controller' => ManageTaskController::class], function() {
         Route::get('/', 'index')->name('manage.task');
@@ -79,6 +83,7 @@ Route::group(['prefix' => 'tasker', 'middleware' => ['can:tasker']], function() 
         Route::get('/', 'index')->name('manage.tes');
         Route::get('/add', 'add')->name('add.tes');
         Route::get('/edit/{id}', 'edit')->name('edit.tes');
+        Route::get('/nilai/{tes}', 'nilai')->name('nilai.siswa');
         Route::post('/store', 'store')->name('store.tes');
         Route::post('/update/{id}', 'update')->name('update.tes');
         Route::post('/delete/{id}', 'delete')->name('delete.tes');
@@ -86,8 +91,10 @@ Route::group(['prefix' => 'tasker', 'middleware' => ['can:tasker']], function() 
     Route::group(['prefix' => 'manage-soal', 'controller' => ManageSoalController::class], function () {
         Route::get('/{tes}', 'index')->name('manage.soal');
         Route::get('/add/{tes}', 'add')->name('add.soal');
+        Route::get('/edit/{id}', 'edit')->name('edit.soal');
         Route::post('/store', 'store')->name('store.soal');
         Route::post('/import', 'import')->name('import.soal');
+        Route::post('/update/{id}', 'update')->name('update.soal');
         Route::post('/delete/{id}', 'delete')->name('delete.soal');
     });
     Route::group(['prefix' => 'manage-tes-siswa', 'controller' => ManageAssignSiswa::class], function () {
@@ -127,5 +134,7 @@ Route::group(['prefix' => 'worker', 'middleware' => ['can:worker']], function() 
     Route::group(['prefix' => 'tes', 'controller' => TesController::class], function() {
         Route::get('/', 'index')->name('tes');
         Route::get('/start/{tes}', 'start')->name('start.tes');
+        Route::post('/submit/{tes}', 'submit')->name('submit.tes');
+        Route::post('/save-jawaban', 'saveJawaban')->name('save.jawaban');
     });
 });

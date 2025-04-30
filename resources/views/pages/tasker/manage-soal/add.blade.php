@@ -3,7 +3,7 @@
 @endpush
 @section('title', 'Tambah Soal')
 @section('content')
-    <div class="d-flex text-secondary">
+    <div class="d-flex text-secondary pb-5">
         @include('components.sidebar')
         <div class="container-fluid" style="padding-left: 250px">
             @include('components.navbar')

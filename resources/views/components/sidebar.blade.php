@@ -44,7 +44,8 @@
                     <li class="nav-item px-2">
                         <a href="{{ route('tes') }}" class="nav-link"><i class="fa-regular fa-pen-to-square me-1"></i> Tes</a>
                     </li>
-                @endif
+                    @endif
+
             </ul>
         </div>
     </div>

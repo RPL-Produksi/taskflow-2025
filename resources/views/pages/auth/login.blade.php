@@ -13,12 +13,18 @@
         .blur {
             backdrop-filter: blur(20px);
         }
+
+        @media(min-width: 1200px) {
+            .card {
+                width: 35%;
+            }
+        }
     </style>
 @endpush
 @section('title', 'Login')
 @section('content')
-    <div class="d-flex justify-content-center align-items-center background text-white" style="height: 100vh">
-        <div class="card border-0 shadow p-4 bg-transparent" style="width: 35%">
+    <div class="d-flex justify-content-center align-items-center background text-white px-3" style="height: 100vh">
+        <div class="card border-0 shadow p-4 bg-transparent">
             <h2 class="text-center fw-bold">Login</h4>
             <p class="text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel commodi quod molestias similique. Atque, rerum.</p>
             <form action="{{ route('login') }}" method="POST" class="mt-4">

@@ -29,7 +29,7 @@
                 showConfirmButton: true,
             });
         @endif
-    
+
         @if(session('error'))
             Swal.fire({
                 icon: 'error',
@@ -47,7 +47,7 @@
                 confirmButtonText: 'Mengerti'
             });
         @endif
-    </script>    
+    </script>
     @stack('js')
 </body>
 </html>

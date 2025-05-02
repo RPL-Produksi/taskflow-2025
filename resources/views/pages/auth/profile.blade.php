@@ -1,11 +1,18 @@
 @extends('main')
 @push('css')
+<style>
+    @media(min-width: 1200px) {
+        .wrap {
+            padding-left: 270px;
+        }
+    }
+</style>
 @endpush
 @section('title', 'Profile')
 @section('content')
-    <div class="d-flex text-secondary">
+    <div class="d-flex text-secondary pb-5">
         @include('components.sidebar')
-        <div class="container-fluid" style="padding-left: 250px">
+        <div class="container-fluid wrap">
             @include('components.navbar')
             <div class="px-4">
                 <div class="card border-0 shadow p-3 mt-4">
@@ -19,7 +26,7 @@
                     </div>
                 @endif
                 <div class="row mt-3">
-                    <div class="col-4">
+                    <div class="col-xl-4">
                         <div class="card shadow border-0 p-3" style="min-height: 28rem">
                             <h5>😎Avatar</h5>
                             <hr>
@@ -40,7 +47,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-xl-4 mt-3">
                         <div class="card shadow border-0 p-3" style="min-height: 28rem">
                             <h5>😊Personal</h5>
                             <hr>
@@ -61,7 +68,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-xl-4 mt-3">
                         <div class="card shadow border-0 p-3" style="min-height: 28rem">
                             <h5>🔒Password</h5>
                             <hr>

@@ -1,11 +1,18 @@
 @extends('main')
 @push('css')
+<style>
+    @media(min-width: 1200px) {
+        .wrap {
+            padding-left: 250px;
+        }
+    }
+</style>
 @endpush
 @section('title', 'Kelola Tes')
 @section('content')
-    <div class="d-flex text-secondary">
+    <div class="d-flex text-secondary pb-5">
         @include('components.sidebar')
-        <div class="container-fluid" style="padding-left: 250px">
+        <div class="container-fluid wrap">
             @include('components.navbar')
             <div class="px-4">
                 <div class="card border-0 shadow p-3 mt-4">
@@ -21,14 +28,14 @@
                 @endif
                 <div class="row">
                     @foreach ($tes as $item)
-                        <div class="col-3 mt-3">
+                        <div class="col-xl-3 mt-3">
                             <div class="card border-0 shadow">
                                 @if ($item->image)
                                     <img src="{{ asset('storage/' . $item->image) }}" height="250"
-                                        style="object-fit: cover" class="img-card-top" alt="">
+                                        style="object-fit: cover" class="img-card-top w-100" alt="">
                                 @else
                                     <img src="{{ asset('images/default-image.avif') }}" height="250"
-                                        style="object-fit: cover" class="img-card-top" alt="">
+                                        style="object-fit: cover" class="img-card-top w-100" alt="">
                                 @endif
                                 <div class="card-body">
                                     <h3 class="card-title">{{ Str::limit($item->title, 16) }}</h3>

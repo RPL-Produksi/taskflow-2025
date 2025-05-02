@@ -1,12 +1,19 @@
 @extends('main')
 @push('css')
+<style>
+    @media(min-width: 1200px) {
+        .wrap {
+            padding-left: 250px;
+        }
+    }
+</style>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('title', 'Kelola Worker')
 @section('content')
-    <div class="d-flex text-secondary">
+    <div class="d-flex text-secondary pb-5">
         @include('components.sidebar')
-        <div class="container-fluid" style="padding-left: 250px">
+        <div class="container-fluid wrap">
             @include('components.navbar')
             <div class="px-4">
                 <div class="card border-0 shadow p-3 mt-4">
@@ -40,49 +47,51 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <table class="table table-bordered text-secondary" id="dataTable">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Username</th>
-                                <th>Role</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($taskWorker as $item)
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-secondary" id="dataTable">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        @if ($item->avatar)
-                                            <img src="{{ asset('storage/' . $item->user->avatar) }}" height="40"
-                                                width="40" class="rounded-circle" style="object-fit: cover"
-                                                alt="">
-                                        @else
-                                            <img src="{{ asset('images/profile-default.png') }}" height="40"
-                                                width="40" class="rounded-circle" style="object-fit: cover"
-                                                alt="">
-                                        @endif
-                                    </td>
-                                    <td>{{ $item->user->name }}</td>
-                                    <td>{{ $item->user->username }}</td>
-                                    <td>{{ $item->user->role }}</td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('manage.subtaskworker', ['task' => $task->id, 'worker' => $item->user_id]) }}"
-                                            class="btn btn-primary me-1"><i class="fa-solid fa-eye"></i></a>
-                                        <form action="{{ route('delete.taskworker', $item->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit"
-                                                onclick="return confirm('Yakin ingin menghapus subtask ini?')"
-                                                class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                        </form>
-                                    </td>
+                                    <th>No</th>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($taskWorker as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            @if ($item->avatar)
+                                                <img src="{{ asset('storage/' . $item->user->avatar) }}" height="40"
+                                                    width="40" class="rounded-circle" style="object-fit: cover"
+                                                    alt="">
+                                            @else
+                                                <img src="{{ asset('images/profile-default.png') }}" height="40"
+                                                    width="40" class="rounded-circle" style="object-fit: cover"
+                                                    alt="">
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->user->name }}</td>
+                                        <td>{{ $item->user->username }}</td>
+                                        <td>{{ $item->user->role }}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ route('manage.subtaskworker', ['task' => $task->id, 'worker' => $item->user_id]) }}"
+                                                class="btn btn-primary me-1"><i class="fa-solid fa-eye"></i></a>
+                                            <form action="{{ route('delete.taskworker', $item->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    onclick="return confirm('Yakin ingin menghapus subtask ini?')"
+                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

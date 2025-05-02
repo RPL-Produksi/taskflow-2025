@@ -1,11 +1,18 @@
 @extends('main')
 @push('css')
+<style>
+    @media(min-width: 1200px) {
+        .wrap {
+            padding-left: 250px;
+        }
+    }
+</style>
 @endpush
 @section('title', 'Tes')
 @section('content')
-    <div class="d-flex text-secondary">
+    <div class="d-flex pb-5 text-secondary">
         @include('components.sidebar')
-        <div class="container-fluid" style="padding-left: 250px">
+        <div class="container-fluid wrap">
             @include('components.navbar')
             <div class="px-4">
                 <div class="card border-0 shadow p-3 mt-4">
@@ -20,24 +27,24 @@
                 @endif
                 <div class="row">
                     @foreach ($tes as $item)
-                        <div class="col-3 mt-3">
+                        <div class="col-xl-3 mt-3">
                             <div class="card border-0 shadow">
                                 <div class="position-relative">
                                     @if ($item->status == 'sudah_mengerjakan' && $item->tes->hasilTes)
                                         <span class="badge bg-success position-absolute top-0 end-0 m-2">
-                                            {{ $item->tes->hasilTes->nilai }}%
+                                            Nilai : {{ $item->tes->hasilTes->nilai }}
                                         </span>
                                     @endif
-                                
+
                                     @if ($item->tes->image)
                                         <img src="{{ asset('storage/' . $item->tes->image) }}" height="250"
-                                            style="object-fit: cover" class="img-card-top" alt="">
+                                            style="object-fit: cover" class="img-card-top w-100" alt="">
                                     @else
                                         <img src="{{ asset('images/default-image.avif') }}" height="250"
-                                            style="object-fit: cover" class="img-card-top" alt=""/>
+                                            style="object-fit: cover" class="img-card-top w-100" alt=""/>
                                     @endif
                                 </div>
-                                
+
                                 <div class="card-body">
                                     <h3 class="card-title">{{ Str::limit($item->tes->title, 16) }}</h3>
                                     <p>{{ Str::limit($item->tes->description, 115) }}</p>
@@ -45,7 +52,7 @@
                                         @php
                                         $isDeadlinePassed = \Carbon\Carbon::now()->gt(\Carbon\Carbon::parse($item->tes->deadline));
                                     @endphp
-                                    
+
                                     @if ($item->status == 'sudah_mengerjakan')
                                         <button class="btn btn-secondary w-100" disabled>Sudah Dikerjakan</button>
                                     @elseif ($isDeadlinePassed)
@@ -53,7 +60,7 @@
                                     @else
                                         <a href="{{ route('start.tes', $item->tes->id) }}" class="btn btn-primary w-100">Kerjakan</a>
                                     @endif
-                                    
+
                                     </div>
                                     <div>
                                         <small>Deadline : {{ $item->tes->deadline }}</small>

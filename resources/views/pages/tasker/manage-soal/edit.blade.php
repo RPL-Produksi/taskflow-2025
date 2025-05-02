@@ -1,9 +1,18 @@
 @extends('main')
 @section('title', 'Edit Soal')
+@push('css')
+<style>
+    @media(min-width: 1200px) {
+        .wrap {
+            padding-left: 250px;
+        }
+    }
+</style>
+@endpush
 @section('content')
 <div class="d-flex text-secondary pb-5">
     @include('components.sidebar')
-    <div class="container-fluid" style="padding-left: 250px">
+    <div class="container-fluid wrap">
         @include('components.navbar')
         <div class="px-4 mt-4">
             <div class="card border-0 shadow p-4">
